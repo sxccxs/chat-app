@@ -1,0 +1,27 @@
+@import 'fonts.css';
+* {
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: e-Ukraine;
+}
+
+*:focus {
+  outline: none;
+}
+
+a {
+  color: #000000;
+  text-decoration: none;
+}
+img {
+  width: 100%;
+  height: auto;
+}
+
+.container {
+  width: 100%;
+  padding: 0 50px;
+  max-width: 1400px;
+}
+
+/*# sourceMappingURL=app.css.map */

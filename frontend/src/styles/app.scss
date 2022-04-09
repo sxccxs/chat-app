@@ -1,0 +1,43 @@
+@import "variables";
+
+@function get-percentage($max-value, $value) {
+  @return $value * 100 / $max-value * 1%;
+}
+
+* {
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: $font-family;
+}
+*:focus {
+  outline: none;
+}
+
+a {
+  color: $black;
+  text-decoration: none;
+
+  &:hover {
+  }
+
+  &:active {
+  }
+}
+
+img {
+  width: 100%;
+  height: auto;
+}
+
+.container {
+  width: 100%;
+  padding: 0 get-percentage(100%, 50px);
+  max-width: 1400px;
+}
+
+//.app-container {
+//  width: 100%;
+//}
+
+//.App {
+//}

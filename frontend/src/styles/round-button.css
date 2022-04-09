@@ -1,0 +1,16 @@
+@import 'fonts.css';
+.round-button {
+  border: 0;
+  border-radius: 100px;
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+}
+.round-button p {
+  margin: 12px 17px;
+  font-family: e-Ukraine Head;
+  font-weight: 500;
+}
+
+/*# sourceMappingURL=round-button.css.map */

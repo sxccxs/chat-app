@@ -1,0 +1,23 @@
+@mixin font-face($family, $path, $weight){
+  @font-face {
+    font-family: $family;
+    src: url($path) format("opentype");
+    font-weight: $weight;
+    font-style: normal;
+  }
+}
+
+@include font-face("e-Ukraine", '../fonts/e-Ukraine/e-Ukraine-Bold.otf', 700);
+@include font-face("e-Ukraine", '../fonts/e-Ukraine/e-Ukraine-Light.otf', 300);
+@include font-face("e-Ukraine", '../fonts/e-Ukraine/e-Ukraine-Medium.otf', 500);
+@include font-face("e-Ukraine", '../fonts/e-Ukraine/e-Ukraine-Regular.otf', 400);
+@include font-face("e-Ukraine", '../fonts/e-Ukraine/e-Ukraine-Thin.otf', 100);
+@include font-face("e-Ukraine", '../fonts/e-Ukraine/e-Ukraine-UltraLight.otf', 200);
+
+@include font-face("e-Ukraine Head", '../fonts/e-Ukraine Head/e-UkraineHead-Bold.otf', 700);
+@include font-face("e-Ukraine Head", '../fonts/e-Ukraine Head/e-UkraineHead-Light.otf', 300);
+@include font-face("e-Ukraine Head", '../fonts/e-Ukraine Head/e-UkraineHead-LOGO.otf', 900);
+@include font-face("e-Ukraine Head", '../fonts/e-Ukraine Head/e-UkraineHead-Medium.otf', 500);
+@include font-face("e-Ukraine Head", '../fonts/e-Ukraine Head/e-UkraineHead-Regular.otf', 400);
+@include font-face("e-Ukraine Head", '../fonts/e-Ukraine Head/e-UkraineHead-Thin.otf', 100);
+@include font-face("e-Ukraine Head", '../fonts/e-Ukraine Head/e-UkraineHead-UltraLight.otf', 200);

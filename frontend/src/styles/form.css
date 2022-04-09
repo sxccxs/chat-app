@@ -1,0 +1,117 @@
+@import 'fonts.css';
+.form {
+  width: 450px;
+  padding: 2rem;
+  border-radius: 50px;
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-field {
+  width: 100%;
+}
+.form-field .inp {
+  position: relative;
+  margin: auto;
+  overflow: hidden;
+}
+.form-field .inp .label {
+  letter-spacing: 1px;
+  position: absolute;
+  top: -5px;
+  left: 1.5rem;
+  font-size: 17px;
+  color: #BEBEBE;
+  font-weight: 300;
+  transform-origin: 0 0;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+.form-field .inp .error {
+  letter-spacing: 1px;
+  position: absolute;
+  right: 10px;
+  bottom: -35px;
+  font-size: 9px;
+  color: #7E7E7E;
+  font-weight: 300;
+  pointer-events: none;
+}
+.form-field .inp .max-length-counter {
+  letter-spacing: 1px;
+  position: absolute;
+  right: 20px;
+  top: -15px;
+  font-size: 11px;
+  color: #7E7E7E;
+  font-weight: 300;
+  transform-origin: 0 0;
+  transform: translate3d(0, 0, 0);
+  transition: all 0.2s ease;
+  pointer-events: none;
+}
+.form-field .inp input {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  padding: 5px 1.5rem 0;
+  height: 56px;
+  font-size: 16px;
+  font-weight: 400;
+  background: #ffffff;
+  color: #000000;
+  transition: all 0.15s ease;
+  border: #BEBEBE 1px solid;
+  border-radius: 50px;
+}
+.form-field .inp input:hover {
+  border-color: #007CFF;
+}
+.form-field .inp input:hover + .label {
+  color: #007CFF;
+  transform: translate3d(0, -12px, 0) scale(0.65);
+}
+.form-field .inp input:not(:placeholder-shown) {
+  border-color: #007CFF;
+}
+.form-field .inp input:not(:placeholder-shown) + .label {
+  color: #BEBEBE;
+  transform: translate3d(0, -10px, 0) scale(0.55);
+}
+.form-field .inp input:focus {
+  border-color: #007CFF;
+}
+.form-field .inp input:focus + .label {
+  color: #BEBEBE;
+  transform: translate3d(0, -10px, 0) scale(0.55);
+}
+
+.form-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+  background-color: #ffffff;
+  color: #CB2424;
+  border-radius: 20px;
+  box-shadow: 0 2px 6px rgba(203, 36, 36, 0.25);
+}
+.form-error p {
+  font-size: 1rem;
+  font-weight: 500;
+}
+.form-error .form-error__cross {
+  margin-left: 1rem;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/*# sourceMappingURL=form.css.map */

@@ -1,0 +1,37 @@
+@import 'fonts.css';
+.login {
+  padding-top: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+.login .login-form {
+  margin-top: 2rem;
+}
+.login .login-form .login-header {
+  font-family: e-Ukraine Head;
+  font-weight: 500;
+  font-size: 2.4rem;
+  padding-bottom: 30px;
+  color: #0E2549;
+}
+.login .login-form .login-input {
+  margin-top: 30px;
+}
+.login .login-form .login-submit {
+  background-color: #007CFF;
+  color: #ffffff;
+  margin-top: 60px;
+}
+.login .login-form .login-submit:hover {
+  background-color: #0C55B2;
+}
+.login .login-form .login-submit:active {
+  background-color: #00387F;
+}
+.login .login-form .login-submit:disabled {
+  background-color: #BEBEBE;
+}
+
+/*# sourceMappingURL=login.css.map */

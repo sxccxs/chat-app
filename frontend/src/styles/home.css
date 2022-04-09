@@ -1,0 +1,69 @@
+@import 'fonts.css';
+main {
+  width: 100%;
+}
+main .header {
+  font-family: e-Ukraine Head;
+  font-weight: 700;
+  font-size: 3rem;
+  color: #00387F;
+}
+main .article {
+  margin-top: 35px;
+  font-size: 1.5rem;
+  font-weight: 200;
+  line-height: 140%;
+  color: #00387F;
+}
+main section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main section .content {
+  padding: 100px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.section1 .img {
+  flex: 1 1 140%;
+}
+.section1 .text {
+  padding-top: 60px;
+}
+.section1 .text .download {
+  background-color: #C20064;
+  color: #ffffff;
+  margin-top: 100px;
+}
+.section1 .text .download p {
+  font-size: 20px;
+}
+.section1 .text .download:hover {
+  box-shadow: 0 3px 9px rgba(111, 19, 63, 0.44);
+}
+.section1 .text .download:active {
+  background-color: #87174D;
+}
+
+.section2 {
+  background-color: #EBEBEB;
+  text-align: center;
+}
+.section2 .text {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.section2 .text .header {
+  padding: 0 10rem;
+}
+.section2 .text .article {
+  padding: 0 20rem;
+}
+
+/*# sourceMappingURL=home.css.map */

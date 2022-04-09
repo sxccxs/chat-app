@@ -1,0 +1,36 @@
+@import 'fonts.css';
+.registration {
+  padding-top: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.registration-header {
+  font-family: e-Ukraine Head;
+  font-weight: 500;
+  font-size: 2.4rem;
+  padding-bottom: 30px;
+  color: #0E2549;
+}
+
+.registration-input {
+  margin-top: 30px;
+}
+
+.registration-submit {
+  background-color: #007CFF;
+  color: #ffffff;
+  margin-top: 60px;
+}
+.registration-submit:hover {
+  background-color: #0C55B2;
+}
+.registration-submit:active {
+  background-color: #00387F;
+}
+.registration-submit:disabled {
+  background-color: #BEBEBE;
+}
+
+/*# sourceMappingURL=registration.css.map */
