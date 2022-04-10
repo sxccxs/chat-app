@@ -1,6 +1,6 @@
-from fastapi import HTTPException, status, APIRouter, Body, Response, Request
+from fastapi import HTTPException, status, APIRouter, Body, Response
 
-from enums import EmailStatus
+from docs import docs
 from models.db import session_maker
 from schemas import payloads
 from schemas.model_schemas import UserLogin, UserCreate
@@ -12,7 +12,7 @@ router = APIRouter(
 )
 
 
-@router.post("/login", response_model=payloads.Tokens)
+@router.post("/login", response_model=payloads.Tokens, responses=docs.get("login"))
 async def login(payload: UserLogin):
     with session_maker() as session:
         user_result = user_service.get_active_user_by_email(session, payload.email)
@@ -25,7 +25,7 @@ async def login(payload: UserLogin):
     return tokens
 
 
-@router.post("/refresh", response_model=payloads.Tokens)
+@router.post("/refresh", response_model=payloads.Tokens, responses=docs.get("refresh"))
 async def refresh(payload: payloads.RefreshPayload):
     result = auth_service.refresh_tokens(payload.refresh_token)
     if not result.is_success:
@@ -44,7 +44,7 @@ async def verify(payload: payloads.VerifyPayload):
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
-@router.post("/register", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/register", status_code=status.HTTP_204_NO_CONTENT, responses=docs.get("register"))
 async def register(user: UserCreate, activation_url: str = Body(...)):
     with session_maker() as session:
         result = user_service.create_user(session, user)
@@ -58,7 +58,7 @@ async def register(user: UserCreate, activation_url: str = Body(...)):
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
-@router.post("/activate", status_code=status.HTTP_204_NO_CONTENT)
+@router.post("/activate", status_code=status.HTTP_204_NO_CONTENT, responses=docs.get("activate"))
 async def activate(payload: payloads.ActivationPayload):
     with session_maker() as session:
         result = auth_service.activate(session, payload)
@@ -68,10 +68,10 @@ async def activate(payload: payloads.ActivationPayload):
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
-@router.post("/check-email-exists", response_model=payloads.CheckEmailOut)
+@router.post("/check-email-exists", responses=docs.get("check_email_exists"))
 async def check_email_exists(payload: payloads.CheckEmailIn):
     with session_maker() as session:
         result = user_service.get_user_by_email(session, payload.email)
     if result.is_success:
-        return payloads.CheckEmailOut(result=EmailStatus.EMAIL_EXISTS)
-    return payloads.CheckEmailOut(result=EmailStatus.EMAIL_DOES_NOT_EXIST)
+        return Response(status_code=status.HTTP_200_OK)
+    return Response(status_code=status.HTTP_404_NOT_FOUND)

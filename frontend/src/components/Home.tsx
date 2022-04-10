@@ -3,9 +3,13 @@ import RoundButton from "./RoundButton";
 import '../styles/home.css';
 import logo from '../images/home-img-1.svg';
 import Header from "./Header";
+import {routes} from "../resources";
+import {useNavigate} from "react-router-dom";
 
 
 function Home() {
+
+    const navigate = useNavigate();
     return (
         <>
             <Header/>
@@ -20,7 +24,7 @@ function Home() {
                                     більше
                                     тексту, ну, приблизно так
                                 </div>
-                                <RoundButton text="Завантажити" className={"download"}/>
+                                <RoundButton text="Завантажити" onClick={() => navigate(routes.download)} className={"download"}/>
                             </div>
                             <div className="img"><img src={logo} alt="chat app"/></div>
                         </div>

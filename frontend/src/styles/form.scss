@@ -45,6 +45,15 @@
       pointer-events: none;
     }
 
+    .correct{
+      position: absolute;
+      right: 20px;
+      top: 0;
+      font-size: 9px;
+      color: #00BD35;
+      pointer-events: none;
+    }
+
     .max-length-counter {
       letter-spacing: 1px;
       position: absolute;

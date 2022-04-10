@@ -40,6 +40,14 @@
   font-weight: 300;
   pointer-events: none;
 }
+.form-field .inp .correct {
+  position: absolute;
+  right: 20px;
+  top: 0;
+  font-size: 9px;
+  color: #00BD35;
+  pointer-events: none;
+}
 .form-field .inp .max-length-counter {
   letter-spacing: 1px;
   position: absolute;

@@ -1,6 +1,7 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
+from docs import docs
 from models.db import session_maker
 from models.models import User
 from schemas import model_schemas as schemas
@@ -13,7 +14,7 @@ router = APIRouter(
 )
 
 
-@router.get("", response_model=schemas.UserOut)
+@router.get("", response_model=schemas.UserOut, responses=docs.get("me"))
 async def get_account_data(user: User = Depends(auth_service.authenticate)):
     return user
 

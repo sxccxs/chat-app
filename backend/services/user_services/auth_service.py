@@ -92,8 +92,8 @@ def activate(db: Session, payload: ActivationPayload) -> Result:
             db.commit()
             return Result()
         return Result(False, "Invalid uidb64 or token")
-    except (TypeError, ValueError, OverflowError) as ex:
-        return Result(False, str(ex))
+    except (TypeError, ValueError, OverflowError):
+        return Result(False, "Invalid uidb64 or token")
 
 
 def authenticate(auth: HTTPAuthorizationCredentials = Security(BEARER)) -> User:

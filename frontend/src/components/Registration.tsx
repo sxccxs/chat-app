@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from 'react';
-import {Form, FormField} from "./Forms";
+import {FieldValidator, Form, FormField} from "./Forms";
 import '../styles/registration.css';
 import RoundButton from "./RoundButton";
 import {
@@ -9,6 +9,7 @@ import {
 } from "../services";
 import {FormStateObject} from "../models";
 import {StatusCodes} from "http-status-codes";
+
 
 function Registration() {
 
@@ -34,6 +35,16 @@ function Registration() {
         },
         [rePassword.value],
     );
+
+
+    const validateEmail = async (email: string): Promise<string | null> => {
+        let result = await UserService.EmailExists(email)
+        if (result.isSuccess){
+            return "Email уже зайнятий."
+        }
+
+        return null;
+    }
 
 
     const fieldsValid = [username, email, password, rePassword].map(x => x.error === null);
@@ -74,8 +85,9 @@ function Registration() {
                            label="Email"
                            inputType="email"
                            maxLength={MAX_EMAIL_LENGTH}
-                           validators={new Map([
-                               [FormValidationService.ValidateEmail, email]
+                           validators={new Map<FieldValidator, FormStateObject<string>>([
+                               [FormValidationService.ValidateEmail, email],
+                               [validateEmail, email],
                            ])}/>
                 <FormField id="password"
                            obj={password}

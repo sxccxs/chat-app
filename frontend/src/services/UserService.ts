@@ -1,8 +1,8 @@
 import {RegistrationData, RequestException, Result, User, VResult} from "../models";
 import {ACCESS_KEY, api, REFRESH_KEY} from "../http";
-import {TokenResponse, UserResponse} from "../http/responses";
+import {EmailCheckResponse, TokenResponse, UserResponse} from "../http/responses";
 import {AxiosResponse} from "axios";
-import {ActivateRequest, LoginRequest, RegistrationRequest} from "../http/requests";
+import {ActivateRequest, EmailCheckRequest, LoginRequest, RegistrationRequest} from "../http/requests";
 import {apiRoutes, routes} from "../resources";
 
 export class UserService {
@@ -41,9 +41,19 @@ export class UserService {
         }
     }
 
-    public static async CheckEmail(email: string): Promise<VResult<boolean, RequestException>> {
+    public static async EmailExists(email: string): Promise<Result<RequestException>> {
         try{
-            api.post()
+            await api.post<null, AxiosResponse, EmailCheckRequest>(apiRoutes.checkEmail, {
+                email: email
+            })
+
+            return {isSuccess: true}
+        } catch (ex){
+            if (ex instanceof RequestException){
+                return {isSuccess: false, exception: ex}
+            }
+
+            throw ex
         }
     }
 

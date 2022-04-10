@@ -3,7 +3,6 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
-from enums import EmailStatus
 from models.models import User
 from services.user_services.token_generator import TokenGenerator
 
@@ -11,10 +10,6 @@ from services.user_services.token_generator import TokenGenerator
 class Tokens(BaseModel):
     access_token: str
     refresh_token: str
-
-
-class TokensOut(BaseModel):
-    access_token: str
 
 
 class RefreshPayload(BaseModel):
@@ -49,6 +44,3 @@ class ActivationPayload(BaseModel):
 class CheckEmailIn(BaseModel):
     email: str
 
-
-class CheckEmailOut(BaseModel):
-    result: EmailStatus

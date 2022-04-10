@@ -1,5 +1,7 @@
 import React, {ReactNode, useState} from 'react';
 import '../styles/form.css';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faXmark, faCheck} from '@fortawesome/free-solid-svg-icons'
 import {FormStateObject} from "../models";
 
 function Form(props: { className?: string, children: ReactNode[] | ReactNode }) {
@@ -10,7 +12,7 @@ function Form(props: { className?: string, children: ReactNode[] | ReactNode }) 
     );
 }
 
-type FieldValidator = (field: string) => string | null
+export type FieldValidator = ((field: string) => string | null) | ((field: string) => Promise<string | null>)
 
 
 interface FormFieldProps {
@@ -25,12 +27,20 @@ interface FormFieldProps {
 
 
 const FormField: React.FC<FormFieldProps> = (props) => {
-    const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const onInputChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         e.preventDefault()
         let value = e.target.value;
-        if (props.validators){
+        if (props.validators) {
             for (let [valid, obj] of props.validators.entries()) {
-                obj.setError(valid(value))
+                let result = valid(value);
+                if (result instanceof Promise) {
+                    result = await result;
+                }
+                obj.setError(result)
+
+                if (result !== null) {
+                    break;
+                }
             }
         }
         props.obj.setValue(value);
@@ -45,13 +55,15 @@ const FormField: React.FC<FormFieldProps> = (props) => {
                        type={props.inputType} placeholder="&nbsp;"/>
                 <span className="label">{props.label}</span>
                 <span className="error">{props.obj.error}</span>
-                {props.maxLength &&
+                {props.maxLength && props.obj.error !== null &&
                     <span className="max-length-counter">{props.obj.value.length}/{props.maxLength}</span>
                 }
+                {props.obj.error === null && <span className="correct"><FontAwesomeIcon icon={faCheck}/></span>}
             </label>
         </div>
     );
 }
+
 FormField.defaultProps = {
     inputType: "text",
 }
@@ -63,7 +75,9 @@ function FormError(props: {
     return (
         <div className="form-error">
             <p>{props.text}</p>
-            <span onClick={props.onClick} className="form-error__cross">&times;</span>
+            <span onClick={props.onClick} className="form-error__cross">
+                <FontAwesomeIcon icon={faXmark}/>
+            </span>
         </div>
     )
 }
