@@ -7,8 +7,10 @@ function Tmp() {
         <>
             <Header/>
 
-            <div className="about">
-                Тут поки порожньо...
+            <div className="container">
+                <div className="about">
+                    Тут поки порожньо...
+                </div>
             </div>
         </>
     );
