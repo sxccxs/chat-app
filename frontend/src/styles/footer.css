@@ -1,0 +1,31 @@
+@import 'fonts.css';
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(235, 235, 235, 0.5);
+}
+.footer .footer-body {
+  font-size: 1rem;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.footer .footer-body .copyright {
+  font-family: e-Ukraine Head;
+  font-weight: 500;
+}
+.footer .footer-body .links {
+  display: flex;
+}
+.footer .footer-body .links .about {
+  font-weight: 500;
+}
+.footer .footer-body .links div {
+  font-family: e-Ukraine Head;
+  margin-left: 2rem;
+  font-weight: 300;
+}
+
+/*# sourceMappingURL=footer.css.map */

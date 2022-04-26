@@ -1,0 +1,21 @@
+@import 'fonts.css';
+.activation {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 120px;
+}
+.activation .activation-form .activation-text {
+  color: #0E2549;
+  font-size: 1.2rem;
+  line-height: 120%;
+}
+.activation .activation-form .activation-button {
+  margin-top: 60px;
+  margin-bottom: 10px;
+  background-color: #007CFF;
+  color: #ffffff;
+}
+
+/*# sourceMappingURL=activation.css.map */
