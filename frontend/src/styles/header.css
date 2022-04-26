@@ -58,6 +58,43 @@ header .navbar .auth {
   display: inline-flex;
   justify-content: flex-end;
 }
+header .navbar .auth .account-info {
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: flex;
+}
+header .navbar .auth .account-info .account-info-body {
+  background-color: #007CFF;
+  border-radius: 50px;
+  padding: 7px 20px;
+  align-items: center;
+  display: flex;
+}
+header .navbar .auth .account-info .account-info-body:hover {
+  background-color: #0C55B2;
+}
+header .navbar .auth .account-info .account-info-body:active {
+  background-color: #00387F;
+}
+header .navbar .auth .account-info .account-info-body .account-text {
+  color: #ffffff;
+  margin-right: 10px;
+}
+header .navbar .auth .account-info .account-info-body .account-text .name {
+  font-size: 0.7rem;
+}
+header .navbar .auth .account-info .account-info-body .account-text .username {
+  margin-top: 2px;
+  font-size: 0.6rem;
+}
+header .navbar .auth .account-info .account-info-body .icon {
+  color: #ffffff;
+}
 header .navbar .auth .login-button {
   background-color: #ffffff;
   color: #00387F;

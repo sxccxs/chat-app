@@ -2,16 +2,14 @@ import re
 import string
 from typing import Callable
 
+from constants import MIN_USERNAME_LENGTH, MAX_USERNAME_LENGTH, MAX_EMAIL_LENGTH, MIN_PASSWORD_LENGTH, \
+    MAX_PASSWORD_LENGTH
 from results import Result
-from schemas.model_schemas import UserCreate
+from schemas.model_schemas import UserCreate, UserUpdate
 
-
-MIN_USERNAME_LENGTH = 3
-MAX_USERNAME_LENGTH = 30
-MAX_EMAIL_LENGTH = 50
-MIN_PASSWORD_LENGTH = 8
-MAX_PASSWORD_LENGTH = 50
-EMAIL_REGEX = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
+EMAIL_REGEX = re.compile(
+    r"^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$"
+)
 
 FilterFunc = Callable[[str], bool]
 
@@ -20,7 +18,18 @@ def validate_create_model(user: UserCreate) -> Result:
     results = [
         __validate_username(user.username),
         __validate_email(user.email),
-        __validate_password(user.password),
+        validate_password(user.password),
+    ]
+
+    invalid_results = tuple(filter(lambda r: not r.is_success, results))
+
+    return invalid_results[0] if invalid_results else Result()
+
+
+def validate_update_model(user: UserUpdate) -> Result:
+    results = [
+        __validate_username(user.username) if user.username is not None else Result(),
+        __validate_email(user.email) if user.email is not None else Result(),
     ]
 
     invalid_results = tuple(filter(lambda r: not r.is_success, results))
@@ -48,7 +57,7 @@ def __validate_email(email: str) -> Result:
     return Result()
 
 
-def __validate_password(password: str) -> Result:
+def validate_password(password: str) -> Result:
     if password is None or password == "":
         return Result(False, "Password can't be empty.")
     if len(password) < MIN_PASSWORD_LENGTH:
@@ -56,10 +65,10 @@ def __validate_password(password: str) -> Result:
     if len(password) > MAX_PASSWORD_LENGTH:
         return Result(False, f"Password can't be longer than {MAX_PASSWORD_LENGTH} characters.")
     if not all((
-        __has_alpha_lower(password),
-        __has_alpha_upper(password),
-        __has_digit(password),
-        __has_symbol(password)
+            __has_alpha_lower(password),
+            __has_alpha_upper(password),
+            __has_digit(password),
+            __has_symbol(password)
     )):
         return Result(False, f"Password must haveat least one lower letter, one upper, a number and a symbol.")
 

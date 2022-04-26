@@ -39,3 +39,41 @@ export class RegistrationData {
         this.rePassword = rePassword
     }
 }
+
+export class AccountEditData {
+    username?: string
+    email?: string
+
+    constructor(username?: string, email?: string) {
+        this.username = username
+        this.email = email
+    }
+}
+
+export class PasswordChangeData {
+    newPassword: string
+    oldPassword: string
+
+    constructor(newPassword: string, oldPassword: string) {
+        this.newPassword = newPassword
+        this.oldPassword = oldPassword
+    }
+}
+
+export class ChatCreatePayload{
+    name: string
+
+    constructor(name: string) {
+        this.name = name
+    }
+}
+
+export class ChatEditPayload{
+    id: number
+    name: string
+
+    constructor(id:number, name: string) {
+        this.id = id
+        this.name = name
+    }
+}

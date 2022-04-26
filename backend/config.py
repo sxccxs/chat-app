@@ -1,5 +1,6 @@
 import os
 from datetime import timedelta
+from logging.config import fileConfig
 from pathlib import Path
 
 from dotenv import load_dotenv
@@ -18,6 +19,7 @@ EMAIL_USER = os.environ.get("EMAIL_USER")
 EMAIL_PASSWORD = os.environ.get("EMAIL_PASSWORD")
 
 ACTIVATION_EMAIL_PATH = Path("templates/account_activation_email.html")
+PASSWORD_RESET_EMAIL_PATH = Path("templates/password_reset_email.html")
 
 CONNECTION_STRING = f"postgresql://{DATABASE_USER}:{DATABASE_PASSWORD}@{DATABASE_HOST}:{DATABASE_PORT}/{DATABASE_NAME}"
 
@@ -26,3 +28,10 @@ JWT = {
     "REFRESH_TOKEN_LIFETIME": timedelta(hours=12),
     "ALGORYTHM": "HS256",
 }
+
+origins = [
+    "http://localhost:3000",
+    "http://localhost:3000/*"
+]
+
+# fileConfig("./logging.conf")

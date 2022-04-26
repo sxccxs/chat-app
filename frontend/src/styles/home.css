@@ -49,8 +49,24 @@ main section .content {
 }
 
 .section2 {
-  background-color: #EBEBEB;
+  background-color: rgba(235, 235, 235, 0.5);
   text-align: center;
+}
+.section2 .content {
+  flex-direction: column;
+}
+.section2 .icons {
+  margin-top: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.section2 .icons .icon {
+  margin: 0 40px;
+  width: 92px;
+  height: 92px;
+  border: 3px solid #00387F;
+  border-radius: 50%;
 }
 .section2 .text {
   width: 100%;
@@ -64,6 +80,16 @@ main section .content {
 }
 .section2 .text .article {
   padding: 0 20rem;
+}
+
+.section3 .img {
+  flex: 0 1 100%;
+}
+.section3 .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 90px;
 }
 
 /*# sourceMappingURL=home.css.map */

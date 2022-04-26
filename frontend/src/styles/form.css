@@ -9,6 +9,20 @@
   align-items: center;
 }
 
+.form-header {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-family: e-Ukraine Head;
+  font-weight: 500;
+  font-size: 2.4rem;
+  padding-bottom: 30px;
+  color: #0E2549;
+}
+
 .form-field {
   width: 100%;
 }
@@ -120,6 +134,13 @@
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+}
+.form-error .form-error__cross svg {
+  stroke: #ffffff;
+  stroke-width: 2rem;
+}
+.form-error .form-error__cross svg:hover {
+  stroke-width: 0.5rem;
 }
 
 /*# sourceMappingURL=form.css.map */

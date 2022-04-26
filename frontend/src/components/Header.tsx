@@ -7,13 +7,16 @@ import {useDispatch, useSelector} from "react-redux";
 import {State, userActionCreators} from "../store";
 import {bindActionCreators} from "redux";
 import {UserService} from "../services";
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faCircleUser} from '@fortawesome/free-solid-svg-icons'
+
 
 function Header() {
     const dispatch = useDispatch()
     const { logout } = bindActionCreators(userActionCreators, dispatch)
     let user = useSelector((state: State) => state.user)
 
-    const loginOnClick = (): void => {
+    const loginOutOnClick = (): void => {
         UserService.Logout()
         logout();
     }
@@ -40,9 +43,15 @@ function Header() {
                                              onClick={() => navigate(routes.registration)}/>
                             </>
                             : <>
-                                <RoundButton text="Вийти"
-                                             className={"registration-button"}
-                                             onClick={loginOnClick}/>
+                                <div className="account-info" onClick={loginOutOnClick}>
+                                    <div className="account-info-body">
+                                        <div className="account-text">
+                                            <div className="name">Ім'я Прізвище</div>
+                                            <div className="username">{user.username}</div>
+                                        </div>
+                                        <div className="icon"><FontAwesomeIcon icon={faCircleUser} size="lg"/></div>
+                                    </div>
+                                </div>
                             </>}
                     </div>
                 </div>

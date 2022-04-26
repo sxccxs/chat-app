@@ -54,7 +54,7 @@ function Login() {
         <div className="login">
             {credentialsError && <FormError onClick={() => setCredentialsError(false)} text="Користувача із такими даними не існує"/>}
             <Form className="login-form">
-                <div className="login-header">Вхід</div>
+                <div className="form-header">Вхід</div>
                 <FormField id="email"
                            obj={email}
                            className="login-input"

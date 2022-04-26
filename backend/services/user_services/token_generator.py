@@ -1,4 +1,3 @@
-import binascii
 from datetime import datetime, timedelta
 from hashlib import sha3_256
 
@@ -39,8 +38,10 @@ class TokenGenerator:
         hash_string = sha3_256(self._make_hash_value(user, timestamp).encode("utf-8")).hexdigest()[::2]
         return f"{ts_b36}-{hash_string}"
 
-    def _make_hash_value(self, user: User, timestamp):
-        return f"{user.id}{user.hashed_password}{timestamp}{user.email}{user.is_active}"
+    @staticmethod
+    def _make_hash_value(user: User, timestamp):
+        return f"{user.id}{user.hashed_password}{timestamp}{user.email}"
 
-    def _num_seconds(self, dt: datetime):
+    @staticmethod
+    def _num_seconds(dt: datetime):
         return int((dt - datetime(2001, 1, 1)).total_seconds())

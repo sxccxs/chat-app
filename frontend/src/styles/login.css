@@ -9,13 +9,6 @@
 .login .login-form {
   margin-top: 2rem;
 }
-.login .login-form .login-header {
-  font-family: e-Ukraine Head;
-  font-weight: 500;
-  font-size: 2.4rem;
-  padding-bottom: 30px;
-  color: #0E2549;
-}
 .login .login-form .login-input {
   margin-top: 30px;
 }

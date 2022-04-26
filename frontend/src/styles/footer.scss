@@ -1,0 +1,33 @@
+@import "variables";
+
+.footer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(235, 235, 235, .5);
+  .footer-body {
+    font-size: 1rem;
+    padding: 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .copyright{
+      font-family: $font-family-head;
+      font-weight: 500;
+    }
+
+    .links {
+      display: flex;
+      .about{
+        font-weight: 500;
+      }
+
+      div {
+        font-family: $font-family-head;
+        margin-left: 2rem;
+        font-weight: 300;
+      }
+    }
+  }
+}

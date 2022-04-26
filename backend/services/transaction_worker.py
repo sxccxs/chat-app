@@ -1,26 +1,36 @@
-from typing import Callable, TypeVar
+import functools
+import logging
+from typing import TypeVar, Protocol
 
-from sqlalchemy.orm import Session
-
+from models.db import database
 from results import Result
 
 T = TypeVar("T", bound=Result)
-ResultFunction = Callable[[Session], T]
+logger = logging.getLogger()
 
 
-def run_as_transaction(db: Session, f: ResultFunction) -> T:
-    try:
-        db.begin()
-        result = f(db)
-        if not result.is_success:
-            db.rollback()
+class ResultFunction(Protocol):
+    async def __call__(self, *args, **kwargs) -> T: ...
+
+
+def run_as_transaction(func: ResultFunction) -> ResultFunction:
+    @functools.wraps(func)
+    async def wrapper(*args, **kwargs) -> T:
+        transaction = database.transaction()
+        try:
+            await transaction.start()
+            result = await func(*args, **kwargs)
+            if not result.is_success:
+                await transaction.rollback()
+                return result
+
+        except Exception as ex:
+            await transaction.rollback()
+            logger.exception("Exception happened while executing a transaction. Transaction rolled back.")
+            raise ex
         else:
-            db.commit()
+            await transaction.commit()
+            logger.info("Transaction committed successfully.")
+            return result
 
-        return result
-    except Exception as ex:
-        db.rollback()
-
-        return type(T)(False, str(ex))
-    finally:
-        db.close()
+    return wrapper

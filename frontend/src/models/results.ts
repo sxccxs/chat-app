@@ -12,3 +12,4 @@ export type VResult<T, E> = {
     isSuccess: false,
     exception: E
 }
+

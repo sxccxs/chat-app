@@ -67,6 +67,52 @@ header {
       display: inline-flex;
       justify-content: flex-end;
 
+      .account-info {
+        cursor: pointer;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+
+
+        display: flex;
+        .account-info-body{
+          background-color: $blue;
+          border-radius: 50px;
+
+          padding: 7px 20px;
+          align-items: center;
+          display: flex;
+
+          &:hover{
+            background-color: $md-blue;
+          }
+
+          &:active{
+            background-color: $dark-blue;
+          }
+
+          .account-text{
+            color: $white;
+            margin-right: 10px;
+
+            .name {
+              font-size: 0.7rem;
+            }
+            .username {
+              margin-top: 2px;
+              font-size: 0.6rem;
+            }
+          }
+
+          .icon {
+            color: $white;
+          }
+        }
+      }
+
       .login-button {
         background-color: $white;
         color: $dark-blue;

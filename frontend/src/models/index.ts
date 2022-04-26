@@ -1,3 +1,3 @@
 export * from "./payloads";
-export * from "./User"
+export * from "./models"
 export * from "./results"

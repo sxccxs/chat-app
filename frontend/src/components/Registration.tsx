@@ -8,10 +8,12 @@ import {
     MAX_USERNAME_LENGTH, UserService
 } from "../services";
 import {FormStateObject} from "../models";
-import {StatusCodes} from "http-status-codes";
+import {NavLink, useNavigate} from "react-router-dom";
+import {routes} from "../resources";
 
 
 function Registration() {
+    let navigate = useNavigate();
 
     let username = new FormStateObject<string>(useState(""),
         useState<string | null>(""))
@@ -39,7 +41,7 @@ function Registration() {
 
     const validateEmail = async (email: string): Promise<string | null> => {
         let result = await UserService.EmailExists(email)
-        if (result.isSuccess){
+        if (result.isSuccess) {
             return "Email уже зайнятий."
         }
 
@@ -60,6 +62,7 @@ function Registration() {
         if (!result.isSuccess) {
             throw result.exception
         }
+        navigate(routes.registrationCompleted);
     }
 
 
@@ -67,10 +70,11 @@ function Registration() {
         setFormValid(fieldsValid.every(x => x))
     }, [fieldsValid])
 
+
     return (
         <div className="registration">
             <Form className="registration-form">
-                <div className="registration-header">Реєстрація</div>
+                <div className="form-header">Реєстрація</div>
                 <FormField id="username"
                            obj={username}
                            className="registration-input"
@@ -117,3 +121,18 @@ function Registration() {
 }
 
 export default Registration;
+
+export function RegistrationCompleted() {
+    return <div className="registration-completed">
+        <Form className="registration-form">
+            <div className="form-header">Вітаємо!</div>
+            <div className="registration-completed-text">
+                <p className="registration-text">Реєстрація успішна. Лист для підтвердження пошти був надісланий на ваш
+                    email.</p>
+                <p className="registration-link">
+                    Повернутися на <NavLink className="registration-completed-link" to={routes.home}>головну</NavLink>
+                </p>
+            </div>
+        </Form>
+    </div>
+}

@@ -1,89 +1,61 @@
+from __future__ import annotations
+
 import datetime
-from functools import partial
-
-from sqlalchemy import Column, Integer, String, Boolean, Table, ForeignKey, DateTime, UniqueConstraint
-from sqlalchemy.orm import relationship
-
-from models.db import Base
-
-NotNullColumn = partial(Column, nullable=False)
+import ormar
+import constants
+from models.db import database, metadata
 
 
-class BaseModel:
-    id = NotNullColumn(Integer, primary_key=True, index=True, autoincrement=True)
+class MainMeta(ormar.ModelMeta):
+    metadata = metadata
+    database = database
 
 
-userChatTable = Table('users_chats', Base.metadata,
-                      Column('user_id', ForeignKey('users.id'), primary_key=True),
-                      Column('chat_id', ForeignKey('chats.id'), primary_key=True)
-                      )
+class PrimaryKeyMixin:
+    id: int = ormar.Integer(primary_key=True)
 
 
-class User(Base, BaseModel):
-    __tablename__ = "users"
+class User(ormar.Model, PrimaryKeyMixin):
+    class Meta(MainMeta):
+        ...
 
-    email = NotNullColumn(String, unique=True, index=True)
-    username = NotNullColumn(String)
-    hashed_password = NotNullColumn(String)
-    is_active = NotNullColumn(Boolean, default=False)
-    chats = relationship(
-        "Chat",
-        secondary=userChatTable,
-        back_populates="users",
-    )
-    roles = relationship(
-        "Role",
-        back_populates="user",
-    )
+    email: str = ormar.String(max_length=constants.MAX_EMAIL_LENGTH, unique=True, index=True)
+    is_verified: bool = ormar.Boolean(default=False)
+    username: str = ormar.String(max_length=constants.MAX_USERNAME_LENGTH, min_length=constants.MIN_USERNAME_LENGTH,
+                                 index=True)
+    hashed_password: str = ormar.String(max_length=255)
 
 
-class Chat(Base, BaseModel):
-    __tablename__ = "chats"
+class Chat(ormar.Model, PrimaryKeyMixin):
+    class Meta(MainMeta):
+        ...
 
-    name = NotNullColumn(String)
-    users = relationship(
-        "User",
-        secondary=userChatTable,
-        back_populates="chats",
-    )
-    roles = relationship(
-        "Role",
-        back_populates="chat",
-    )
-    messages = relationship(
-        "Message",
-        back_populates="chat",
-    )
+    name: str = ormar.String(max_length=constants.MAX_CHATNAME_LENGTH, min_length=constants.MIN_CHATNAME_LENGTH,
+                             index=True)
+    users: list[User] | None = ormar.ManyToMany(to=User)
 
 
-class Message(Base, BaseModel):
-    __tablename__ = "messages"
+class Message(ormar.Model, PrimaryKeyMixin):
+    class Meta(MainMeta):
+        ...
 
-    text = NotNullColumn(String)
-    sending_time = NotNullColumn(DateTime, default=datetime.datetime.now)
-    chat_id = NotNullColumn(Integer, ForeignKey("chats.id"))
-    chat = relationship(
-        "Chat",
-        back_populates="messages",
-    )
-    author_id = NotNullColumn(Integer, ForeignKey("users.id"))
-    author = relationship("User")
+    text: str = ormar.Text()
+    sending_time: datetime.datetime = ormar.DateTime(default=datetime.datetime.now)
+    chat: Chat = ormar.ForeignKey(Chat, nullable=False)
+    author: User = ormar.ForeignKey(User, nullable=False)
 
 
-class RoleType(Base, BaseModel):
-    __tablename__ = "role_types"
+class RoleType(ormar.Model, PrimaryKeyMixin):
+    class Meta(MainMeta):
+        ...
 
-    name = NotNullColumn(String, unique=True, index=True)
+    name = ormar.String(max_length=255, unique=True, index=True)
 
 
-class Role(Base, BaseModel):
-    __tablename__ = "roles"
+class Role(ormar.Model, PrimaryKeyMixin):
+    class Meta(MainMeta):
+        constraints = [ormar.UniqueColumns("user", "chat")]
 
-    role_type_id = NotNullColumn(Integer, ForeignKey("role_types.id"))
-    role_type = relationship("RoleType", uselist=False)
-    user_id = NotNullColumn(Integer, ForeignKey("users.id"))
-    user = relationship("User", back_populates="roles")
-    chat_id = NotNullColumn(Integer, ForeignKey("chats.id"))
-    chat = relationship("Chat", back_populates="roles")
-
-    __table_arg__ = (UniqueConstraint("user_id", "chat_id"),)
+    role_type: RoleType = ormar.ForeignKey(RoleType, nullable=False)
+    user: User = ormar.ForeignKey(User, nullable=False)
+    chat: Chat = ormar.ForeignKey(Chat, nullable=False)

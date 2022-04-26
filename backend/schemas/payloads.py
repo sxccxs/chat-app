@@ -3,6 +3,7 @@ from datetime import datetime
 
 from pydantic import BaseModel
 
+import enums
 from models.models import User
 from services.user_services.token_generator import TokenGenerator
 
@@ -20,8 +21,14 @@ class VerifyPayload(BaseModel):
     token: str
 
 
+class UserTokenData(BaseModel):
+    id: int
+    hashed_password: str
+
+
 class TokenData(BaseModel):
     id: int
+    hashed_password: str
     token_type: str | None
     exp: datetime | None
     jti: str | None
@@ -41,6 +48,16 @@ class ActivationPayload(BaseModel):
     token: str
 
 
-class CheckEmailIn(BaseModel):
-    email: str
+class PasswordResetPayload(ActivationPayload):
+    new_password: str
 
+
+class UserChatPayload(BaseModel):
+    user_email: str
+    chat_id: int
+
+
+class ChangeRolePayload(BaseModel):
+    user_email: str
+    chat_id: int
+    new_role_type: enums.RoleType

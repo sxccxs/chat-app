@@ -3,7 +3,7 @@ import {TokenResponse} from "./responses";
 import {RefreshRequest} from "./requests";
 import {RequestException} from "../models";
 
-const API_URL = "http://127.0.0.1:8000"
+export const API_URL = "http://127.0.0.1:8000"
 export const ACCESS_KEY = "access"
 export const REFRESH_KEY = "refresh"
 
@@ -34,6 +34,8 @@ api.interceptors.response.use(
                 localStorage.setItem(REFRESH_KEY, response.data.refresh_token)
                 return api.request(originalConfig)
             } catch {
+                localStorage.removeItem(ACCESS_KEY)
+                localStorage.removeItem(REFRESH_KEY)
                 return Promise.reject(new RequestException(response.status, response.data))
             }
         }

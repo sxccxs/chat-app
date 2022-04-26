@@ -80,4 +80,48 @@ docs = {
             }
         }
     },
+    "edit_account_data": {
+        status.HTTP_200_OK: {
+            "description": "Data successfuly changed",
+            "model": schemas.UserOut
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "description": "Invalid data provided",
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Invalid activation url"}
+                }
+            }
+        },
+        status.HTTP_401_UNAUTHORIZED: {
+            "description": "Not Authorized",
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Not authenticated"}
+                }
+            }
+        }
+    },
+    "password_change": {
+        status.HTTP_200_OK: {
+            "description": "Password successfuly changed",
+            "model": payloads.Tokens
+        },
+        status.HTTP_400_BAD_REQUEST: {
+            "description": "Invalid data provided",
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Invalid password"}
+                }
+            }
+        },
+        status.HTTP_401_UNAUTHORIZED: {
+            "description": "Not Authorized",
+            "content": {
+                "application/json": {
+                    "example": {"detail": "Not authenticated"}
+                }
+            }
+        }
+    },
 }

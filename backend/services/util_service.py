@@ -4,11 +4,17 @@ import secrets
 from string import digits, ascii_lowercase
 from typing import Any
 
+from fastapi import HTTPException, status
+
 import config
 
 
+def raise_bad_request(message: str):
+    raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=message)
+
+
 def get_jwt_config_if_exists(dict_key: str):
-    """Returns value by given key from config.JWT dict
+    """Returns value by given key from 'config.JWT' dict
     if JWT dict exists and given key is specified in it,
     else returns None.
     """
@@ -59,7 +65,7 @@ def base36_to_int(s: str) -> int:
 
 
 def int_to_base36(i):
-    char_set = digits+ascii_lowercase
+    char_set = digits + ascii_lowercase
     if i < 0:
         raise ValueError("Negative base36 conversion input.")
     if i < 36:

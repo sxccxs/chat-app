@@ -1,6 +1,7 @@
 @import "variables";
 
 main {
+
   width: 100%;
   .header {
     font-family: $font-family-head;
@@ -62,8 +63,27 @@ main {
 }
 
 .section2{
-  background-color: #EBEBEB;
+  background-color: rgba(235, 235, 235, .5);
   text-align: center;
+
+  .content{
+    flex-direction: column;
+  }
+
+  .icons{
+    margin-top: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .icon{
+      margin: 0 40px;
+      width: 92px;
+      height: 92px;
+      border: 3px solid $dark-blue;
+      border-radius: 50%;
+    }
+  }
 
   .text{
     width: 100%;
@@ -79,5 +99,19 @@ main {
     .article {
       padding: 0 20rem;
     }
+  }
+}
+
+.section3 {
+  .img {
+    flex: 0 1 100%;
+  }
+
+  .text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 90px;
+
   }
 }

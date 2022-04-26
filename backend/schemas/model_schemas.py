@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from datetime import datetime
+import datetime
 
 from pydantic import BaseModel
 
@@ -11,6 +11,8 @@ class __UserBase(BaseModel):
 
 
 class UserOut(__UserBase):
+    is_verified: bool
+
     class Config:
         orm_mode = True
 
@@ -25,25 +27,25 @@ class UserLogin(BaseModel):
 
 
 class UserUpdate(BaseModel):
-    id: int
     username: str | None
     email: str | None
-    is_active: bool | None
-    password: str | None
 
 
-class User(__UserBase):
-    id: int
-    is_active: bool
-    chats: list[Chat] = []
-    roles: list[Role] = []
-
-    class Config:
-        orm_mode = True
+class PasswordChange(BaseModel):
+    old_password: str
+    new_password: str
 
 
 class _ChatBase(BaseModel):
     name: str
+
+
+class ChatCreate(_ChatBase):
+    ...
+
+
+class ChatEdit(_ChatBase):
+    id: int
 
 
 class ChatOut(_ChatBase):
@@ -53,48 +55,18 @@ class ChatOut(_ChatBase):
         orm_mode = True
 
 
-class Chat(_ChatBase):
-    id: int
-    messages: list[Message] = []
-    users: list[User] = []
-    roles: list[Role] = []
-
-    class Config:
-        orm_mode = True
-
-
 class __MessageBase(BaseModel):
     text: str
 
 
-class MessageCreate(BaseModel):
-    ...
-
-
-class Message(BaseModel):
-    id: int
-    sending_time: datetime
-    author_id: int
+class MessageCreate(__MessageBase):
     chat_id: int
 
-    class Config:
-        orm_mode = True
 
-
-class RoleType(BaseModel):
+class MessageOut(__MessageBase):
     id: int
-    name: str
+    chat: ChatOut
+    sending_time: datetime.datetime
 
     class Config:
         orm_mode = True
-
-
-class Role(BaseModel):
-    id: int
-    role_type: RoleType
-    user: User
-    chat: Chat
-
-    class Config:
-        orm_mode = True
-
