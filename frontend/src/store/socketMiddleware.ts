@@ -3,7 +3,7 @@ import {ACCESS_KEY} from "../http";
 import {apiRoutes} from "../resources";
 import {ChatsActionType, UserActionType} from "./action-types";
 import {ChatResponse, MessageResponse} from "../http/responses";
-import {Chat, Message, MessageCreate} from "../models";
+import {Chat, Message} from "../models";
 import {chatsActionCreators} from "./action-creators"
 import {io, Socket} from "socket.io-client";
 

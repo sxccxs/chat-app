@@ -1,11 +1,10 @@
 import React from 'react';
 import {Navigate} from "react-router-dom";
 
-import {useDispatch, useSelector} from "react-redux";
-import {State, chatsActionCreators} from "../store";
+import {useSelector} from "react-redux";
+import {State} from "../store";
 import {routes} from "../resources";
 import Header from "./Header";
-import {bindActionCreators} from "redux";
 
 function Chats() {
     const user = useSelector((state: State) => state.user)

@@ -1,5 +1,3 @@
-import {AccountEditData} from "../../models";
-
 export interface RefreshRequest {
     refresh_token: string | null
 }
